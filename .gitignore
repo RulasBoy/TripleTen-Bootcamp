@@ -1,3 +1,4 @@
 echo "*.ipynb_checkpoints/" > .gitignore
 echo "__pycache__/" >> .gitignore
 echo ".DS_Store" >> .gitignore  # (Si algún día usas Mac)
+.venv/
