@@ -1,0 +1,744 @@
+## Tomar decisiones de negocio basadas en datos
+
+### Introducción
+
+En esta parte del curso hablaremos sobre la toma de decisiones de negocios basadas en datos.
+
+Aprenderás sobre las hipótesis: cómo formularlas, probarlas y analizar los resultados de las pruebas.
+
+#### Qué vas a aprender
+
+- Cómo determinar qué métricas de negocio son las más importantes.
+- Cómo plantear hipótesis.
+- Métodos para probar las hipótesis.
+- Formas de priorizar hipótesis.
+- Cómo analizar los tests A/B, cuáles son las limitaciones del método y los errores más comunes al aplicarlo.
+
+También revisarás el análisis básico de datos estadísticos y verás cómo se relaciona con los tests A/B.
+
+Tanto en las lecciones como en el proyecto final, completarás tareas relacionadas con tiendas online.
+
+### Qué necesita un negocio
+
+El objetivo de cualquier negocio es generar ingresos y eventualmente ganancias; la prioridad de cada métrica depende de la estrategia actual y futura de la empresa.
+
+#### Métricas y estrategia
+
+- No es posible atender todas las métricas a la vez; algunas pueden moverse en direcciones opuestas, como ingresos y margen al aplicar descuentos.
+- Las métricas prioritarias cambian con el plan estratégico, el ciclo de vida del negocio y el tipo de inversión que se busca.
+
+#### Ejemplos
+
+- `Simple Things`: hoy optimiza beneficio neto para pagar dividendos a los fundadores; al inicio priorizaba ingresos presentes y futuros para crecer cuota de mercado y justificaba sacrificar ganancias.
+- `Innovations for Everyone (Even You)`: enfoca métricas en ingresos futuros y velocidad de desarrollo de una tecnología aún no comercializada; inversiones dependen del éxito esperado.
+- `Huge Established Company`: al cotizar en bolsa y prometer ingresos específicos, debe cumplirlos para sostener el precio de las acciones y proteger inversiones de accionistas.
+
+#### Rol del analista
+
+El analista identifica la estrategia vigente, decide qué métricas son críticas en cada etapa y orienta esfuerzos de mejora hacia ellas.
+
+### Métricas leading y descomposición
+
+Conocer las métricas clave permite entender cómo cada rol impacta los objetivos de negocio y qué palancas están al alcance para moverlas.
+
+#### Métricas leading vs lagging
+
+- Una métrica leading reacciona antes que el indicador principal y permite predecir su comportamiento; ejemplos: CAC, LTV, tasa de conversión.
+- Una métrica lagging describe resultados pasados; si no hay correlación con el objetivo, la métrica considerada no es verdaderamente leading.
+- Ejemplo positivo: Facebook vincula retención con que un usuario alcance 10 amigos.
+- Ejemplo negativo: un servicio de streaming usó “películas vistas en el primer mes” como leading para retención, pero la métrica no se correlacionó con suscripciones posteriores pese al mes gratis.
+
+#### Necesidad de descomponer
+
+- Los objetivos se alcanzan a través del trabajo coordinado de múltiples equipos; cada especialista debe aislar las partes donde puede intervenir.
+- Descomponer una métrica revela cómo cambios locales afectan el resultado global.
+
+#### Descomposiciones de ingresos
+
+- `Ingresos = tamaño de compra promedio × número de compras`.
+- `Número de compras = usuarios adquiridos × tasa de conversión a pedido`.
+- Alternativamente, `Ingresos = usuarios adquiridos × ingresos por visitante (RPV)`, donde `RPV = ingresos totales / visitantes`.
+- Distintas descomposiciones del mismo indicador permiten explorar el embudo desde perspectivas complementarias.
+
+#### Caso John y Tom
+
+- John (marketing) amplía fuentes de tráfico, pero detecta RPV más bajo en canales nuevos.
+- Sin influencia sobre el comportamiento in-site, John involucra a Tom (producto); Tom observa que el LTV de esos usuarios es inferior al CAC, por lo que la adquisición es antieconómica.
+- Analizar RPV junto con métricas leading adicionales (LTV, CAC) revela la verdadera causa del problema.
+
+### Identificación de métricas importantes
+
+Aun cuando existan modelos de producto, marketing o finanzas en la organización, el analista debe conocer métodos complementarios para validar e inspirar métricas leading relevantes.
+
+#### Métodos habituales
+
+- `Análisis de stakeholders`: alinea intereses de quienes influyen en la empresa, conectando motivaciones de corto y largo plazo.
+- `Estado de pérdidas y ganancias (P&L)`: resume ingresos y gastos de un periodo, con estructura estándar que facilita detectar palancas y economía unitaria.
+- `Customer Journey Map (CJM)`: describe objetivos, pasos y fricciones del usuario a lo largo de su relación con el producto.
+- `Análisis UX`: combina pruebas de usabilidad, eye tracking e entrevistas para medir la experiencia en la interfaz.
+- `Entrevistas a usuarios`: profundizan en necesidades, expectativas y “dolores” específicos.
+
+Aplicar estos enfoques ayuda a revelar qué métricas representan mejor los intereses de usuarios, negocio y propietarios.
+
+#### Stakeholders
+
+Los stakeholders (propietarios, directivos, inversores, usuarios) necesitan métricas alineadas con sus intereses financieros o de uso.
+
+```
+Stakeholder                 → Interés principal                                 → Métricas clave
+Inversores/propietarios     → Incrementar valor y dividendos                    → Ingresos, ganancias
+Director ejecutivo          → Cumplir KPI de ingresos y ganancias               → Crecimiento de ingresos y ganancias
+Director de marketing       → Escalar ingresos y presupuesto de marketing       → Presupuesto, ROMI, ingresos
+Director de tecnología      → Sustentabilidad del producto y eficiencia del TI  → Downtime, bugs, presupuesto TI, tareas completadas
+Usuarios                    → Valor percibido, transparencia y soporte          → ROI percibido, tiempo ahorrado, tickets, horas de soporte
+```
+
+#### Estados P&L
+
+- Integran todos los ingresos y gastos, incluidos los diferidos.
+- Reflejan periodos completos, permitiendo analizar tendencias.
+- Ofrecen formato estándar adaptable a diferentes modelos de negocio.
+- Ya desagregan gastos por área, lo que reduce cálculos adicionales para la economía unitaria.
+
+Otros informes financieros o modelos internos también pueden aportar perspectivas clave para seleccionar métricas de negocio.
+
+#### CJM y análisis UX
+
+- El CJM muestra cómo interactúan los usuarios, qué buscan y dónde encuentran fricción; orienta métricas de conversión y satisfacción.
+- El análisis UX emplea pruebas de usabilidad, seguimiento ocular e entrevistas para evaluar si la interfaz facilita los objetivos del usuario.
+- Métricas de satisfacción (NPS, CSAT, CES) estiman el valor potencial que puede generar una experiencia positiva.
+
+#### Rol del analista
+
+Aun sin liderar entrevistas, estudios UX o reportes contables, el analista integra sus hallazgos para proponer y priorizar métricas de negocio, fomentando colaboración entre departamentos y detectando puntos de apalancamiento.
+
+### Registros de experimentos
+
+Documentar hipótesis, condiciones y resultados evita duplicar esfuerzos, mejora la colaboración entre equipos y facilita discusiones con stakeholders sobre qué iniciativas repetir o descartar.
+
+#### Por qué mantenerlos
+
+- Impiden reintentar hipótesis fallidas y ahorran recursos (ejemplo: evitar rediseños estacionales sin impacto en métricas clave).
+- Capturan aprendizajes transferibles entre departamentos, reforzando la toma de decisiones basada en evidencia.
+- Proveen respaldo objetivo al debatir nuevas ideas con líderes y partes interesadas.
+
+#### Cómo gestionarlos
+
+- No existe un formato único; pueden ser bases de conocimiento, hojas de cálculo o sistemas en la nube, siempre ajustados al contexto del proyecto.
+- Principios recomendados:
+  - `Confiabilidad`: cada entrada debe ser verificada por al menos dos personas y seguir reglas de experimentación claras.
+  - `Transparencia`: las normas para crear, editar o eliminar registros deben ser conocidas por todos los usuarios.
+  - `Formato estándar`: estructura homogénea para localizar hipótesis, variantes, métricas y resultados.
+  - `Accesibilidad`: permitir que todas las partes interesadas consulten el repositorio (con niveles de permiso adecuados) para evitar duplicidades y fomentar ideas.
+
+### ¿Experimentar o no?
+
+Las iniciativas deben considerar restricciones externas (contratos, operaciones) y posibles conflictos de incentivo entre equipos antes de ejecutar nuevos experimentos.
+
+#### Limitaciones estratégicas
+
+- Algunas palancas están fuera del control del analista (por ejemplo, contratos mínimos con proveedores estratégicos como el acuerdo de Toy Universe con Armos).
+- No es viable recomendar cambios que comprometan acuerdos críticos o flujos garantizados de usuarios/ingresos.
+
+#### Conflictos de intereses
+
+- Sistemas de incentivos pueden bloquear iniciativas válidas si afectan objetivos a corto plazo (caso Landingland: ventas resiste proyectos complejos porque retrasan sus bonos y reducen ingresos inmediatos).
+- Lanzar nuevas líneas requiere ajustar KPI y compensaciones para evitar resistencia interna.
+
+#### Importancia del historial
+
+- Repetir experimentos sin revisar registros previos puede generar pérdidas significativas (ejemplo Great Grain: reseñas en el encabezado redujeron la conversión un 30% tanto antes como después).
+- Consultar bases de hipótesis confirma si una idea ya se probó, qué condiciones se usaron y cuáles fueron los resultados.
+- Aprovechar aprendizajes anteriores permite refinar hipótesis o descartarlas sin riesgo.
+
+### Cómo generar ideas
+
+Para priorizar hipótesis efectivas es clave ampliar el abanico de ideas, adoptando una mentalidad inquisitiva y recopilando insumos de múltiples fuentes antes de filtrarlas.
+
+#### Herramientas de ideación
+
+- `Lluvia de ideas`: suspende el juicio durante la sesión; registra incluso propuestas inusuales y evalúa después.
+- `Materiales didácticos`: libros, cursos, blogs y podcasts ofrecen soluciones ya probadas que se pueden adaptar a nuevos contextos.
+- `Experiencia propia`: aplicar aprendizajes de otros sectores puede desbloquear mejoras significativas (ejemplo Tom: métodos industriales redujeron tiempos un 15% en TI).
+- `Análisis de mercado y competidores`: perfiles de clientes y benchmark de competidores revelan atributos que impulsan frecuencia, ticket y disposición a pagar.
+- `Entrevistas con usuarios`: detectan necesidades y fricciones que impiden la compra o el uso recurrente.
+- `Feedback multicanal`: ventas y soporte aportan demandas y fallos recurrentes; reseñas en apps, tiendas o medios especializados enriquecen la perspectiva.
+- `Análisis UX`: identifica puntos de fricción en la interfaz y su impacto en la percepción del producto.
+- `Insights de datos`: dashboards y análisis permiten descubrir oportunidades (caso Jane: automatización elevó la productividad 20% y los ingresos 5%).
+- `TRIZ`: metodología para resolver problemas creativos complejos, enfocada en detectar y superar contradicciones.
+
+#### Mentalidad analítica
+
+- Investigar cada pista como un detective; conservar ideas para priorización posterior.
+- Considerar siempre el contexto completo del negocio al evaluar propuestas.
+- Iterar sobre hipótesis apoyándose en evidencia interna y externa para maximizar el impacto en métricas clave.
+
+### Formulación de una buena hipótesis
+
+Transformar ideas en hipótesis requiere precisión para que cualquier lector entienda exactamente qué se probará, bajo qué condiciones y qué resultado se espera.
+
+#### Características clave
+
+- Lógica y consistencia: debe derivarse de análisis o insights previos.
+- Comprobable: tiene que poder validarse o refutarse mediante un experimento o análisis.
+- Coherente con hechos conocidos: no puede contradecir datos previos.
+- Útil: debe aportar valor práctico o conocimiento accionable.
+- Detallada y específica: describe contexto, segmentación, magnitud esperada y condiciones.
+- Acotada: se refiere a un escenario o audiencia concreta.
+
+Ejemplo: “Un botón de compra rojo (#FF0000) en la página del producto puede aumentar la conversión en compradores repetidos” especifica qué cambia, dónde y con qué métrica se medirá.
+
+#### Comunicación clara
+
+- Una hipótesis mal descrita provoca interpretaciones ambiguas y ejecuciones erróneas (caso Mary y Leonardo: falta de restricciones sobre keywords y ROI provocó pérdidas).
+- Documenta supuestos, criterios de exclusión (por ejemplo, evitar términos de alta frecuencia) y métricas objetivo (ROI positivo).
+- Asegura que quienes implementan el experimento comprendan expectativas y límites.
+
+### Conclusión y lecturas recomendadas
+
+Aprendiste a:
+
+- Identificar puntos de crecimiento mediante análisis de métricas.
+- Descomponer indicadores y construir métricas leading.
+- Generar ideas desde múltiples fuentes.
+- Formular hipótesis claras basadas en esas ideas.
+
+Lectura independiente (en inglés):
+
+- Análisis de cohortes: https://medium.com/analytics-for-humans/a-beginners-guide-to-cohort-analysis-the-most-actionable-and-underrated-report-on-google-c0797d826bf4
+- Brainstorming: https://www.wordstream.com/blog/ws/2019/01/03/brainstorming-techniques
+- Análisis del viaje del usuario: https://www.mockplus.com/blog/post/user-journey-vs-user-flow
+- Investigación de UX: https://www.youtube.com/watch?v=YTRIeWI0EGQ
+- Desarrollo de clientes: https://producttribe.com/product-management/customer-development-guide
+
+Próximo capítulo: cómo elegir un método para probar una hipótesis.
+
+## Escoger un método experimental
+
+### Introducción
+
+En este capítulo se revisan distintos enfoques para validar hipótesis y se analizan los pros y contras de las pruebas A/B.
+
+Vas a aprender:
+
+- Cómo seleccionar el mejor método para una hipótesis.
+- Ventajas y desventajas de los tests A/B.
+- Métodos alternativos para probar hipótesis.
+
+### Métodos experimentales
+
+Tras priorizar hipótesis, es necesario decidir qué técnicas usar para probarlas; pueden ser cualitativas o cuantitativas.
+
+#### Métodos cualitativos
+
+- Responden “¿qué?”, “¿cómo?” y “¿por qué?”, revelando motivaciones y comportamientos.
+- Limitaciones: sesgos de entrevistador/entrevistado, muestras pequeñas y dificultad para cuantificar impacto numérico o generalizar resultados.
+
+#### Métodos cuantitativos
+
+- Responden “¿cuánto?”, permiten medir con precisión cambios en el comportamiento y su magnitud.
+- Limitaciones: no explican motivaciones ni interpretaciones profundas del usuario.
+
+#### Ejemplo de Jessica
+
+- Fase cualitativa: estudio con eye tracking y observación directa para entender cómo los usuarios leen el boletín; identifica zonas de atención y razones del comportamiento.
+- Fase cuantitativa: prueba con nuevo asunto e introducción; la conversión a visitas sube 20%, pero no se conoce la motivación exacta del cambio.
+
+Conclusión: combinar métodos cualitativos y cuantitativos ofrece visión completa sobre qué ocurre y cuál es su impacto.
+
+### Métodos cualitativos de prueba
+
+Incluyen entrevistas en profundidad, entrevistas a expertos, entrevistas de problemas, análisis UX y grupos focales; profundizan en motivaciones y fricciones de los usuarios.
+
+#### Entrevistas en profundidad
+
+- Requieren confianza entre entrevistador y participante; permiten explorar motivaciones ocultas.
+- Implican preparación detallada y entrevistadores expertos; suelen durar más de 30 minutos.
+- Guiones y preguntas actúan como guía flexible, no como límite estricto.
+
+#### Entrevistas a expertos
+
+- Variante de la entrevista en profundidad con especialistas del sector.
+- Aportan perspectivas profesionales distintas a las de usuarios promedio.
+- Ayudan a descartar hipótesis ya probadas o insostenibles.
+
+#### Entrevistas de problemas
+
+- Buscan confirmar si existen necesidades actuales que el producto pretende resolver.
+- Priorizan preguntas sobre presente/pasado (“¿cómo lo resuelves hoy? ¿cuánto pagas?”) en lugar de escenarios hipotéticos.
+- Usuarios suelen hablar con franqueza hasta que se enfrentan al costo real de la solución.
+
+#### Análisis UX
+
+- Identifica los obstáculos que los usuarios encuentran en la interfaz.
+- Involucra pruebas de hipótesis como parte del proceso para mejorar la experiencia.
+
+#### Grupos focales
+
+- Reúnen hasta ~10 participantes para discutir percepciones sobre un tema o producto.
+- Se organizan grupos homogéneos (por edad, género, rol) para reducir fricción y comparar segmentos.
+- Pueden combinarse con métricas cuantitativas si la muestra es suficientemente amplia.
+
+Estos métodos cualitativos son comunes, pero no exclusivos; a gran escala pueden enriquecerse con indicadores cuantitativos sobre frecuencia o intensidad de las opiniones.
+
+### Métodos cuantitativos de prueba: pruebas A/B
+
+#### Sondeos y encuestas
+
+- Pueden aplicarse presencialmente o en remoto (teléfono, web, mensajería, email) a muestras amplias con cuestionarios estandarizados.
+- Ventaja principal: anonimato facilita respuestas sinceras y resultados estadísticamente robustos.
+- Cuidado con preguntas sesgadas o redactadas ambiguamente que induzcan respuestas.
+
+#### Análisis de datos existentes
+
+- Permite validar hipótesis con registros históricos directos o indirectos.
+- Útil para priorizar hipótesis al detectar patrones previos en el comportamiento de usuarios.
+
+#### Pruebas A/B
+
+- Dividen el tráfico en dos o más grupos (control vs variantes) y comparan métricas clave tras aplicar cambios.
+- Flujo típico: asignación aleatoria, medición de visitas/clics/compras, análisis estadístico y decisión basada en la comparación con el control.
+- Ejemplo: Tom prueba tamaño del botón “Comprar” en un curso online con 28 000 usuarios (14 000 por grupo) durante dos semanas; la versión con botón grande logra 175 registros (1.25%) frente a 140 (1%) del control, lo que aumenta las inscripciones un 25% al desplegar la variante ganadora.
+
+#### Pros y contras de las pruebas A/B
+
+- Ventajas:
+  - Comparan con precisión métricas como conversión, ticket promedio, profundidad de visita, pedidos, clics o retención.
+  - Son versátiles: se han usado para tratamientos médicos, scripts de ventas, segmentación de bases de clientes o pruebas de procesos de manufactura.
+  - Se consideran uno de los métodos más exactos en investigación de mercado cuando están bien diseñadas.
+- Desventajas:
+  - Consumen muchos recursos; pequeños errores en la configuración pueden invalidar resultados tras semanas de espera.
+  - Alta sensibilidad al entorno: factores externos pueden sesgar resultados, por lo que se asume que afectan por igual a todos los grupos.
+  - Requieren asignación aleatoria rigurosa y tamaños de muestra grandes para que operen la ley de grandes números y el TLCL; en contextos con poco tráfico hay que bajar exigencias o elegir métodos alternativos.
+- En resumen, son herramientas poderosas pero delicadas: cuando se ejecutan correctamente, justifican el esfuerzo con decisiones mejor informadas y ganancias superiores.
+
+## Priorizar hipótesis
+
+### Introducción
+
+Experimentar tiene costos; priorizar hipótesis garantiza invertir recursos en ideas con mayor potencial de impacto.
+
+Vas a aprender:
+
+- Cómo priorizar hipótesis con los frameworks ICE, RICE y WSJF.
+- Qué significa evaluar `Reach`, `Impact`, `Confidence` y `Effort` en ICE/RICE.
+
+### ¿Por qué priorizar?
+
+- Recursos limitados obligan a elegir qué hipótesis testear primero.
+- El objetivo es maximizar el crecimiento en métricas clave y evitar gastar en experimentos de bajo valor.
+
+### Métodos comunes
+
+#### Matriz de Eisenhower
+
+- Clasifica hipótesis según importancia y urgencia.
+- Prioridad A: importantes y urgentes; se prueban primero.
+- Prioridad B: importantes pero no urgentes; se planifican después.
+- Hipótesis no importantes (cuadrantes C y D) se descartan, aunque sean urgentes, porque su impacto en objetivos estratégicos es bajo.
+
+#### WSJF (Weighted Shortest Job First)
+
+- Fórmula: `WSJF = Cost of Delay / Job Duration`.
+- `Cost of Delay` = `User-Business Value + Time Criticality + Risk Reduction/Opportunity Enablement`.
+- Cada componente se puntúa (p. ej. escala 0-10 o Fibonacci); `Job Duration` representa tiempo/esfuerzo esperado.
+- Favorece iniciativas con alto impacto y corto tiempo de ejecución.
+
+#### ICE y RICE
+
+- `ICE = Impact × Confidence / Effort`.
+- `RICE = Reach × Impact × Confidence / Effort`.
+- Componentes:
+  - `Reach`: usuarios afectados.
+  - `Impact`: magnitud del efecto en experiencia, métricas o satisfacción.
+  - `Confidence`: certeza basada en datos o insights previos.
+  - `Effort`: recursos necesarios para implementar y medir.
+- Escalas flexibles (0-10, Fibonacci, etc.); se adaptan al contexto del equipo.
+
+### Recomendaciones
+
+- Mantén una lista priorizada para revisar progreso y alinear al equipo.
+- Cuestiona dudas de interpretación en canales de soporte (ej. `#exerciser`); cada capítulo se construye sobre el anterior.
+
+### Parámetro `Reach` (alcance)
+
+- Se estima con datos propios (ventas, usuarios activos) o referencias externas (competencia, tamaño de mercado).
+- Ejemplo Nick: cambiar la landing de jugo de cereza (10% de ingresos) en una escala lineal 0-10, donde 10 equivale al 50% de usuarios; asigna `Reach = 2` porque afecta al 10%.
+- Ejemplo Cathy: funciones nuevas con escala Fibonacci `0, 0.5, 1, 2, 3, 5, 8, 13, 21, 34`; al usar `Reach = 3` (quinto valor) para reflejar 50% de usuarios, la escala resulta poco sensible porque la mayoría de hipótesis se quedan en valores 0-3.
+- Lección: elegir una escala adecuada al comportamiento real de tus hipótesis mejora la discriminación y evita que la mayoría de propuestas se agrupen en rangos bajos.
+
+### Parámetro `Impact` (impacto)
+
+- Mide la intensidad del efecto que experimentan los usuarios alcanzados.
+- No confundir con `Reach`: alcance = cuántos usuarios, impacto = cuánto cambia su experiencia o una métrica.
+- Ejemplos:
+  - Cambio de icono en la opción más usada de un servicio de taxi: alto alcance, bajo impacto porque el ajuste es sutil.
+  - Nueva opción para usuarios con silla de ruedas: bajo alcance (1-2%) pero impacto máximo al habilitar completamente el servicio para ese segmento.
+- Formas de medir impacto:
+  - Porcentaje del área de pantalla afectada.
+  - Grado de cambio en la experiencia de usuario.
+  - Importancia estimada para usuarios (según entrevistas/feedback).
+  - Número de usuarios nuevos que podría atraer la modificación.
+- Adapta los criterios a tu producto y estrategia para evaluar el impacto con la granularidad necesaria.
+
+### Parámetro `Effort` (esfuerzo)
+
+- Cuantifica recursos necesarios para diseñar, implementar y medir la hipótesis.
+- Ejemplo de bajo esfuerzo: Fresh Start Laundry crea una landing en 2 h, script de ventas en 20 min y brief en 10 min; puntuación ~2/10.
+- Ejemplo de alto esfuerzo: servicio de newsletter que cambia su segmentación requiere nuevas interfaces, base de datos y módulo de cálculo; equipo de tres desarrolladores durante varios días → puntuación 9-10/10.
+- Al estimar esfuerzo incluye horas de desarrollo, diseño, QA, coordinación y cualquier operación adicional indispensable.
+
+### Parámetro `Confidence` (confianza)
+
+- Indica cuán seguros estamos de las estimaciones de `Reach`, `Impact` y `Effort`.
+- Confianza alta cuando:
+  - El número de usuarios afectados se conoce con precisión.
+  - Hay evidencia sólida de impacto (experiencias previas, casos comparables).
+  - El esfuerzo está calculado y los riesgos de desviación son mínimos.
+- Ejemplo taxi precio fijo:
+  - `Reach`: todos los usuarios; valor exacto.
+  - `Impact`: validado con resultados de un competidor.
+  - `Effort`: claro, pero con riesgo en la exactitud de tarifas → `Confidence ≈ 7-8/10`.
+- Ejemplo newsletter con nueva segmentación:
+  - `Reach`: incierto; se desconoce adopción.
+  - `Impact`: basado en fuente poco confiable sin datos detallados.
+  - `Effort`: estimado, pero con riesgo de bugs y ajustes post-lanzamiento.
+  - Resultado: confianza baja (~1-2/10).
+
+### Conclusión
+
+Aprendiste a:
+
+- Priorizar hipótesis con frameworks como ICE, RICE y WSJF.
+- Evaluar `Reach`, `Impact`, `Confidence` y `Effort` para priorizar de forma consistente.
+
+Lecturas recomendadas:
+
+- Matriz de Eisenhower: https://jamesclear.com/eisenhower-box
+- WSJF: https://www.playbookhq.co/blog/wsjf-weighted-shortest-job-first
+- ICE/RICE: https://www.mindtheproduct.com/three-simple-ways-to-make-product-prioritisation-easier/
+
+Siguiente capítulo: preparación para ejecutar una prueba A/B.
+
+## Preparar un test A/B
+
+### Introducción
+
+Las pruebas A/B comparan versiones de un producto para medir su efecto en KPIs bajo condiciones controladas. Antes de ejecutarlas, se realiza una prueba A/A para validar el entorno y la instrumentación.
+
+### Pruebas A/A
+
+- Objetivos:
+  - Detectar anomalías o outliers en la población.
+  - Verificar que la herramienta de división de tráfico funciona.
+  - Confirmar que los datos llegan correctamente a los sistemas analíticos.
+- Características:
+  - Ambos grupos ven la misma versión; no debería existir diferencia significativa.
+  - Ayudan a calibrar duración y metodología del futuro test A/B.
+- Criterios de éxito:
+  - Asignación aleatoria entre grupos A1 y A2.
+  - Tamaño de muestra suficiente para detectar varianzas pequeñas.
+  - Uso de las mismas métricas previstas para la prueba A/B.
+  - Condiciones idénticas en experiencia e interfaz para todos los grupos.
+  - Diferencias en usuarios y métricas ≤ 1% (o dentro del margen de error aceptable).
+  - Registro y envío consistente de eventos a analítica para todos los grupos.
+- Sensibilidad: si esperas cambios pequeños (≤10%), exige precisión alta (diferencias ≤1% en la A/A) antes de avanzar al A/B.
+
+### Errores de tipo I y II
+
+- `α` (nivel de significancia) es la probabilidad de rechazar la hipótesis nula (`H₀`) cuando es verdadera → error tipo I o falso positivo.
+- Un valor `p < α` sugiere diferencia significativa; si en realidad no existe diferencia, incurrimos en error tipo I.
+- `β` representa la probabilidad de aceptar `H₀` cuando es falsa → error tipo II o falso negativo.
+- El poder estadístico (`1 - β`) es la probabilidad de detectar una diferencia real y rechazar `H₀` correctamente.
+- Reducir simultáneamente las probabilidades de error tipo I y II es imposible sin aumentar el tamaño de muestra; típicamente se elige `α = 0.05` o `α = 0.01` como compromiso.
+
+```
+Decisión estadística   | H₀ verdadera            | H₀ falsa
+-----------------------|-------------------------|------------------------------
+Rechazar H₀            | Error tipo I (falso +)   | Correcto (detección real)
+No rechazar H₀         | Correcto (sin efecto)    | Error tipo II (falso -)
+```
+
+### Comparaciones múltiples (A/B/n)
+
+- Probar múltiples variantes aumenta la probabilidad de error tipo I (falso positivo).
+- Si el nivel de significancia es `α`, la probabilidad de no cometer error en una comparación es `1 - α`; en `k` comparaciones, la probabilidad de evitar errores es `(1 - α)^k`, por lo tanto la probabilidad de al menos un falso positivo es `1 - (1 - α)^k`.
+- Ejemplo: cuatro versiones de un botón (`A`, `B1`, `B2`, `B3`) con `α = 0.05` → probabilidad de ≥1 falso positivo `1 - (1 - 0.05)^3 ≈ 14.26%`.
+- Con más variantes, la tasa de error familiar (`FWER = P(V ≥ 1)`) crece (p. ej. 10 pruebas → ~40%).
+
+#### Correcciones comunes
+
+- **Bonferroni**: ajusta `α` dividiéndolo por el número de pruebas `m` (`α' = α / m`). Simple y conservador.
+- **Holm**: procedimiento secuencial más potente; ordena valores `p` y compara cada uno con `α / (m - i + 1)` (para la última comparación, `α`).
+- **Šidák**: calcula `α' = 1 - (1 - α)^(1/m)`, menos conservador que Bonferroni.
+
+Al aplicar ajustes estrictos se reduce el poder estadístico; Métodos como Holm o Šidák equilibran mejor FWER y sensibilidad cuando necesitas detectar efectos reales.
+
+#### Ejemplo práctico
+
+Comparación de tres versiones de un formulario (`sample_A`, `sample_B`, `sample_C`) usando `scipy.stats.ttest_ind` y corrección de Bonferroni (`α = 0.05`, `m = 3`). Ninguna comparación produce `p < α/3`, por lo que no se detectan diferencias significativas entre variantes.
+
+### Tamaño de muestra y duración
+
+- Define la duración en función de ciclos de tráfico (diario, semanal, mensual) y del tiempo que tarda el usuario en convertir.
+- Evita el “peeking problem”: concluir antes de finalizar la recolección incrementa sesgos; establece tamaño de muestra y duración por adelantado.
+- Muestras pequeñas generan alta dispersión; la ley de los grandes números estabiliza resultados al aumentar observaciones.
+- Procedimiento correcto:
+  1. Formular hipótesis, métricas, tamaño de muestra y duración.
+  2. Ejecutar sin interrupciones ni análisis anticipados.
+  3. Analizar al finalizar.
+- Usa calculadoras para estimar tamaño/duración mínimos:
+  - http://www.evanmiller.org/ab-testing/sample-size.html
+  - https://www.optimizely.com/sample-size-calculator/?conversion=20&effect=5&significance=95
+  - https://vwo.com/tools/ab-duration-calculator/
+- Ejemplo: comparar formularios con 4 vs 5 campos, conversión base 1%, efecto mínimo detectable 5% → ≈900 000 observaciones por grupo. Con 100 000 visitas diarias se requiere al menos 18 días (`900 000 × 2 / 100 000`).
+
+### Más allá de las calculadoras
+
+- Ventajas:
+  - Estiman tamaño de muestra mínimo.
+  - Ayudan a mitigar el “peeking problem”.
+  - Permiten calcular duración mínima.
+- Limitaciones:
+  - No garantizan validez completa: conversión y efecto detectable cambian durante la prueba.
+  - Se enfocan en métricas de conversión; otras métricas requieren herramientas más complejas.
+- Ejemplo: prueba con tasa base 10% y efecto relativo 2% necesitaba 460 000 observaciones por grupo (logradas en 5 días); aun así la conversión fluctuó hasta estabilizarse tras 6 semanas. Conclusión: espera a que las diferencias se estabilicen antes de decidir.
+
+### Ajustar duración según industria y audiencia
+
+- Identifica picos de actividad por:
+  - Ciclos laborales vs fines de semana.
+  - Festividades y campañas promocionales.
+  - Eventos estacionales (vuelta a clases, invierno/verano).
+  - Movimientos de competidores.
+  - Contexto económico o político.
+- Considera el ciclo de decisión de compra:
+  - `Only $3`: decisiones en minutos → prueba de 7 días captura todo el comportamiento.
+  - `Leonardo Divanci`: muebles de lujo con ciclo de 3 semanas → pruebas deben durar ≥4-5 semanas; requiere grandes volúmenes de tráfico y control riguroso de factores externos.
+
+### Conclusión
+
+Estás listo para planificar y analizar pruebas A/B con rigor. Aprendiste a:
+
+- Evaluar probabilidades de errores tipo I y II.
+- Aplicar correcciones para comparaciones múltiples.
+- Calcular tamaños de muestra mínimos.
+- Definir duración óptima considerando audiencia e industria.
+
+Lectura recomendada:
+
+- https://conversion.com/blog/3-mistakes-invalidate-ab-test-results/
+
+## Analizar los resultados del test A/B
+
+### Introducción
+
+Interpretar pruebas A/B requiere dominar métodos estadísticos, comprender el comportamiento de usuarios y practicar el análisis de métricas.
+
+Vas a aprender:
+
+- Aplicar métodos estadísticos a resultados de A/B.
+- Leer métricas diarias y acumuladas.
+- Identificar valores atípicos y anomalías.
+- Usar criterios estadísticos apropiados.
+
+### Comparar proporciones
+
+- Para contrastar tasas de conversión entre variantes, se usa la comparación de proporciones (`π₁`, `π₂`).
+- El estadístico `Z` sigue distribución normal estándar cuando `H₀: π₁ = π₂`:
+  ```
+  Z = (P₁ - P₂) / √(P(1 - P)(1/n₁ + 1/n₂))
+  ```
+  donde:
+  - `P₁`, `P₂`: proporciones observadas.
+  - `P`: proporción combinada.
+  - `n₁`, `n₂`: tamaños de muestra.
+- Con `H₀` verdadera, `(π₁ - π₂) = 0`, por lo que el estadístico depende solo de datos muestrales. Permite pruebas bilaterales o unilaterales.
+
+#### Ejemplo práctico
+
+- Fuente A: 78 pedidos de 830 registros (`P₁ ≈ 0.094`).
+- Fuente B: 120 pedidos de 909 registros (`P₂ ≈ 0.132`).
+- `α = 0.05`.
+- Calculamos `Z` y su valor p (bilateral):
+  - `p ≈ 0.0126 < 0.05` → rechazamos `H₀`; existe diferencia significativa entre las proporciones.
+- Aunque la brecha (9% vs 13%) parezca pequeña, con muestras grandes basta para obtener significancia.
+
+### Pruebas de normalidad
+
+- Muchos fenómenos humanos presentan distribuciones con colas pesadas (Pareto/80-20), por lo que no siempre se ajustan a la normal.
+- El teorema del límite central garantiza normalidad en medias/proporciones muestrales, pero cada muestra puede contener outliers que distorsionen análisis.
+- Para verificar normalidad en una muestra se pueden usar:
+  - **Chi-cuadrado (`χ²`)**: compara frecuencias observadas vs esperadas.
+  - **Shapiro–Wilk**: más potente con muestras pequeñas; disponible en `scipy.stats.shapiro`.
+- Ejemplo (sesiones semanales de usuarios):
+  - `p ≈ 0.963 > 0.05` → no se rechaza `H₀`; la distribución puede considerarse normal.
+
+### Pruebas no paramétricas (Mann–Whitney U)
+
+- Cuando hay outliers importantes o distribuciones sesgadas, los métodos no paramétricos ofrecen alternativas robustas.
+- La prueba U de Mann-Whitney (`scipy.stats.mannwhitneyu`) compara rangos de dos muestras independientes sin asumir normalidad.
+- Idea: ordenar valores y comparar la suma de rangos; cambios grandes sugieren distribuciones diferentes.
+- Ejemplo: número de mensajes por usuario antes (`messages_old`) y después (`messages_new`) de una nueva interfaz de chat:
+  - Distribución con colas pesadas típicas de redes sociales.
+  - `p ≈ 0.488 > 0.05` → no se rechaza `H₀`; no hay evidencia de cambio en la cantidad de mensajes.
+
+### Métricas acumuladas y peeking
+
+- Para evitar decisiones prematuras, monitorea métricas acumuladas (suma día a día) en lugar de valores diarios aislados.
+- Por el teorema del límite central, las métricas acumuladas tienden a estabilizarse; si la diferencia relativa converge, puedes decidir detener la prueba.
+- Procedimiento:
+  - Graficar métricas diarias → puede mostrar alta volatilidad.
+  - Graficar métricas acumuladas → revela tendencia y estabilización.
+  - Graficar diferencias relativas (`B/A - 1`) para visualizar ventaja o desventaja entre variantes.
+- Ejemplo:
+  - Conversión diaria: ruido elevado, difícil comparar.
+  - Conversión acumulada: grupo B consistente por debajo de A; convergencia hacia final.
+  - Diferencia relativa: `groupB/groupA - 1` se mantiene negativa y decrece → B peor que A.
+
+### Herramientas con `pandas` y `numpy`
+
+- `apply(lambda x: ...)` con `axis=1` para procesar filas.
+- `agg()` para agregaciones múltiples por columna (`max`, `sum`, `nunique`).
+- `sort_values()` ordenar resultados.
+- `np.logical_and` / `np.logical_or` / `np.logical_not` para filtros booleanos complejos.
+
+#### Preparar datos acumulados
+
+1. Cargar pedidos (`orders`) y visitantes (`visitors`); convertir fechas con `datetime.strptime`.
+2. Crear combinaciones únicas de fecha-grupo (`drop_duplicates`).
+3. Para cada par fecha-grupo:
+   - Filtrar pedidos hasta esa fecha y grupo.
+   - Agregar: `orderId` únicos, `userId` únicos, suma de `revenue`.
+4. Repetir para visitantes (suma acumulada de `visitors`).
+5. Unir resultados en `cumulativeData` con columnas:
+   - `orders`, `buyers`, `revenue`, `visitors`.
+
+#### Visualizaciones clave
+
+- Ingresos acumulados por grupo (`plt.plot`).
+- Ticket promedio (ingresos acumulados / pedidos acumulados); observar estabilización o caídas.
+- Diferencia relativa en ticket (`(ticketB/ticketA) - 1`) con línea base (`axhline(0)`).
+- Conversión acumulada (`orders/visitors`) y su diferencia relativa.
+- Ajustar ejes con `plt.axis` para facilitar lectura.
+- Simetrías inusuales → revisar código/datos. En el ejemplo, simetría es legítima.
+
+Conclusión: antes de interpretar resultados, analiza métricas acumuladas y diferencias relativas, asegurándote de tener suficientes datos y de revisar posibles anomalías.
+
+### Detección de anomalías
+
+- Los outliers pueden distorsionar KPIs (ticket promedio, conversión); identificarlos es clave antes decidir.
+- Analiza:
+  - `revenue` por pedido.
+  - Número de pedidos por usuario.
+- Herramientas:
+  - Histogramas (`plt.hist`) y gráficos de dispersión (`plt.scatter`).
+  - Percentiles (`np.percentile`) para establecer umbrales (1-5% superior).
+  - Agrupaciones (`groupby` + `nunique`) para contar pedidos por usuario.
+- Ejemplo ingresos:
+  - Valores extremos > $20k-$40k; percentiles 90-95-99 ≈ $8,114, $13,817, $105,038.
+- Ejemplo pedidos por usuario:
+  - Usuarios con 5-15 pedidos; percentiles 90-95-99 ≈ 3, 4.85, 8.34 → límite razonable 4-5 pedidos.
+- Próximo paso: aplicar filtros para excluir registros por encima de umbrales (ver lección siguiente).
+
+### Impacto de las anomalías en resultados A/B
+
+1. **Preparación de datos**
+   - Cargar `orders` y `visitors`.
+   - Calcular pedidos por usuario para cada grupo (`ordersByUsersA/B`).
+   - Construir muestras (`sampleA/B`) con número de pedidos por usuario, rellenando con ceros para visitantes sin compra.
+
+2. **Conversión sin filtrar**
+   - `stats.mannwhitneyu(sampleA, sampleB)` → `p ≈ 0.441` (no significativa).
+   - Diferencia relativa: `sampleB.mean()/sampleA.mean() - 1 ≈ -10.2%`.
+
+3. **Ticket promedio sin filtrar**
+   - `mannwhitneyu` sobre `revenue` → `p ≈ 0.260`.
+   - Diferencia relativa: ≈ -18.5% (B menor que A).
+
+4. **Definir usuarios anómalos**
+   - Umbral: >4 pedidos o pedido > $20 000.
+   - Identificar `abnormalUsers` (14 usuarios) combinando ambos criterios.
+
+5. **Resultados con datos filtrados**
+   - Conversión (`sampleAFiltered`, `sampleBFiltered`):
+     - `p ≈ 0.446` (sin cambio relevante).
+     - Diferencia relativa: ≈ -10.5%.
+   - Ticket promedio filtrado:
+     - `p ≈ 0.384`.
+     - Diferencia relativa: ≈ -6.2% (reducción del gap tras remover outliers).
+
+Conclusión: aunque la significancia no cambia, los outliers exageraban la diferencia en ticket. Aun así, ambos conjuntos (crudo y filtrado) indican que el grupo B rinde peor. Gráficas de diferencia relativa confirman descenso persistente en conversión y ticket, por lo que la prueba debe detenerse: es altamente improbable que B supere a A.
+
+### Conclusiones finales de la prueba A/B
+
+- Conversión: los datos crudos y filtrados muestran diferencia estadísticamente significativa; el grupo B supera al grupo A y converge a resultados crecientes/estables.
+- Ticket promedio: sin filtrar no hay diferencia significativa; tras eliminar anomalías sí aparece una brecha estadística.
+- Gráfico de conversión acumulada: tendencia ascendente o estabilizada a favor de B respalda mantener los cambios.
+- Gráfico de ticket promedio: exhibe fluctuaciones y ayudó a detectar outliers; no permite conclusiones firmes por sí solo.
+
+## Errores comunes en pruebas A/B
+
+- **Dividir tráfico incorrectamente**: asignaciones desbalanceadas (ej. versión móvil vs escritorio) introducen sesgos y diferencias aparentes (49/51 usuarios ≈ 4%).
+- **Ignorar significancia estadística**: cambios relativos deben contrastarse con pruebas; decisiones sin `p`-value conducen a pérdidas a largo plazo.
+- **Peeking problem**: evitar decisiones con resultados intermedios; mantener disciplina metodológica.
+- **Muestra demasiado pequeña**: con pocas observaciones no hay poder estadístico.
+- **Prueba demasiado corta**: aunque se alcance el tamaño calculado, esperar estabilización real antes de concluir.
+- **Prueba demasiado larga**: si la diferencia ya es clara y carece de significancia, prolongar no aporta valor.
+- **No analizar anomalías**: outliers pueden sesgar métricas; siempre detectarlos y filtrarlos si corresponde.
+- **No ajustar por comparaciones múltiples**: aumenta la probabilidad de falsos positivos.
+
+### Conclusión
+
+Aprendiste a:
+
+- Aplicar análisis estadístico a resultados A/B.
+- Interpretar métricas diarias y acumuladas.
+- Detectar y tratar valores atípicos y anomalías.
+- Usar criterios estadísticos adecuados.
+
+Lectura sugerida:
+
+- Steven Strogatz, *El placer de la X: Una visita guiada por las matemáticas, del uno al infinito* (capítulo “La nueva normalidad”).
+
+## Habilidades sociales (Soft skills)
+
+### Hechos, emociones y evaluaciones
+
+- Diferenciar hechos, emociones y evaluaciones ayuda a tomar decisiones basadas en evidencia.
+- Ejemplo:
+  - Hecho: “La plataforma está congelada”.
+  - Emoción: “Me molesta muchísimo”.
+  - Evaluación: “Plataforma estúpida”.
+- Relevancia para analistas:
+  - Los profesionales controlan emociones y evalúan con rigor factual.
+  - Las decisiones (propias y ajenas) influidas por emociones afectan los datos observados; integrarlas en las hipótesis es clave.
+- Definiciones:
+  - **Hecho**: describe la realidad observable.
+  - **Emoción**: reacción subjetiva; diferentes personas reaccionan distinto ante el mismo evento.
+  - **Evaluación**: juicio cargado de emoción; no necesariamente objetivo (“la plataforma es estúpida” es solo una opinión).
+
+### Expresar tu posición claramente
+
+- Caso María: reportar solo “retención = 56%” carece de contexto; los resultados requieren narrativa clara y lógica.
+- Con colegas analistas:
+  - Agenda tiempo, define objetivo, parte de los hechos y declara tus opiniones explícitamente.
+  - Comparte dudas, busca feedback y colabora en soluciones.
+- Con clientes internos (jefes, otras áreas):
+  - Revisa la solicitud original y presenta primero números clave.
+  - Acompaña con conclusiones breves: evolución histórica, alineación con el negocio.
+  - Enfatiza hallazgos antes que detalles técnicos; ofrece recomendaciones (no órdenes).
+  - Mantén tono sereno ante objeciones; aprovecha para validar tu lógica o mejorarla.
+
+### Investiga el contexto empresarial
+
+- Conocer el negocio es esencial para interpretar datos (ej. en apps con sesiones cortas hay que analizar retención y momentos de abandono).
+- Antes de entrevistas o reuniones:
+  - Define industria, modelo de ingresos y tipo de clientes (B2C/B2B).
+  - Investiga cultura corporativa, estructura del equipo y horarios.
+- Durante las primeras semanas:
+  - Identifica objetivos anuales de la empresa y tu área.
+  - Ubica a tu departamento en la organización.
+  - Comprende KPI individuales y del equipo.
+  - Mapea procesos donde participarás y stakeholders clave.
+- Documentar esta información sistemáticamente acelera tu integración y te orienta en la toma de decisiones; comprender la misión refuerza el alineamiento de tu carrera con la empresa.

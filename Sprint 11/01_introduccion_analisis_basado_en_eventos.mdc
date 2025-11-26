@@ -1,0 +1,572 @@
+# Análisis basado en eventos - Temario Completo
+
+## Introducción
+
+El análisis basado en eventos proporciona un conjunto de herramientas para la recopilación y el análisis de datos que permiten estudiar al detalle cómo se comportan los usuarios de servicios, aplicaciones y juegos.
+
+### Objetivos de aprendizaje:
+
+- Cómo distinguir el análisis basado en eventos del análisis web.
+- Cómo hacer un plan para el seguimiento de eventos.
+- Cómo aplicar varios tipos de análisis de eventos.
+
+---
+
+## La esencia del análisis basado en eventos
+
+El análisis basado en eventos implica el seguimiento y el análisis de varios eventos (acciones realizadas por los usuarios) en aplicaciones, servicios y otros sistemas digitales.
+
+### Ejemplo: Registradores de acceso rápido de aviones
+
+Un gran ejemplo de métodos analíticos basados en eventos en acción es la decodificación de datos de los registradores de acceso rápido de los aviones. Estos dispositivos son similares a las cajas negras que se utilizan para investigar accidentes e incidentes, pero su propósito es mejorar la seguridad y la eficiencia. Registran unidades de datos simples, como valores de sensores, sonidos en la cabina y la conversación de la tripulación. Los datos se transmiten a un centro de control, que analiza las acciones de la tripulación y los indicadores de rendimiento técnico.
+
+---
+
+## Análisis Web vs Análisis Basado en Eventos
+
+### Análisis Web
+- Se basa en las **sesiones de los usuarios** (normalmente, las páginas vistas)
+- La unidad principal es la **vista de página**
+- Sistemas como Google Analytics
+
+### Ejemplo: Tienda de mascotas online (Análisis Web)
+
+**Datos almacenados:**
+1. Vio la página principal.
+2. Visitó la página de búsqueda (buscó algo; para saber qué, tendríamos que ver la URL en la interfaz de Metrica).
+3. Visitó la página del producto.
+4. Visitó la página de otro producto.
+5. Visitó la página del carrito.
+6. Visitó la página de revisión de compra.
+7. Visitó la página de pago.
+8. Visitó la página de finalización del pedido.
+
+**Utilidad:** Suficiente para calcular tasas de conversión básicas.
+
+### Análisis Basado en Eventos
+
+Proporciona una imagen más detallada del comportamiento del usuario.
+
+**Mismo ejemplo con análisis basado en eventos:**
+1. Vio la página principal.
+2. Hizo clic en el cuadro de búsqueda en la página principal.
+3. Buscó "comida para gatos".
+4. Visitó la página de comida para gatos Catterbury Tails.
+5. Vio a través de imágenes ampliadas de comida para gatos Catterbury Tails.
+6. Hizo clic en comida para gatos Divine Feline, en la sección de artículos recomendados.
+7. Visitó la página de comida para gatos Divine Feline.
+8. Vio a través de imágenes ampliadas de comida para gatos Divine Feline.
+9. Cambió el tamaño del paquete de comida para gatos Divine Feline de 9 a 12 litros.
+10. Agregó el producto al carrito.
+11. Hizo clic en el botón Carrito.
+12. Vio la página del carrito.
+13. Hizo clic en el enlace Entrega y vio las opciones en la ventana emergente.
+14. Hizo clic en el botón Pagar.
+15. Vio la página de pago.
+16. Completó una cierta cantidad de campos (puede haber muchos de ellos y cada relleno se puede rastrear como un evento separado).
+17. Hizo clic en el botón Pagar.
+18. Pagó por el producto en la página de pago.
+19. Vio la página de finalización del pedido.
+
+---
+
+## Preguntas que puede responder el Análisis Basado en Eventos
+
+Con análisis basado en eventos podemos responder preguntas complejas como:
+
+- ¿El color de un artículo tiene algún impacto en la probabilidad de que se realice una compra?
+- ¿Cuántos usuarios dejan de usar el sitio web después de no encontrar el producto que necesitan?
+
+---
+
+## Diferencias Clave
+
+| Aspecto | Análisis Web | Análisis Basado en Eventos |
+|---------|--------------|---------------------------|
+| **Enfoque** | Sesiones y páginas vistas | Comportamiento y acciones del usuario |
+| **Objetivo principal** | Fuentes de tráfico | Comportamiento detallado |
+| **Granularidad** | Baja (páginas completas) | Alta (acciones individuales) |
+| **Uso típico** | Sitios web tradicionales | Aplicaciones móviles, servicios interactivos |
+
+---
+
+## Casos de Uso del Análisis Basado en Eventos
+
+### Aplicaciones Móviles
+El análisis basado en eventos se usa ampliamente para aplicaciones móviles, donde los usuarios realizan muchas pequeñas acciones. Por ejemplo:
+- Instagram
+- Facebook
+- Aplicaciones de juegos
+
+Cada acción pequeña dice mucho sobre el comportamiento del usuario. Con esta información, la aplicación "aprende" cómo ofrecerte contenido y anuncios más relevantes.
+
+### Otros Productos Digitales
+Los eventos se pueden rastrear para cualquier producto digital que tenga formas complejas de interacción con el usuario:
+- Servicios web
+- Exhibiciones interactivas en museos
+- Cualquier interfaz donde la clientela se "comunica" con el producto
+
+---
+
+## Ventajas del Análisis Basado en Eventos
+
+1. **Personalización:** Los datos se pueden utilizar para hacer que el producto sea más personalizado.
+2. **Insights profundos:** Con gran volumen de información estadística, puedes llegar a conclusiones inesperadas al estudiar incluso acciones aparentemente triviales.
+3. **Generación de hipótesis:** Permite generar y probar hipótesis relacionadas con comportamientos específicos.
+4. **Análisis detallado:** Permite analizar vistas tanto de páginas enteras como de secciones separadas.
+
+---
+
+## Integración con Sistemas de Análisis Web
+
+Los sistemas de análisis web tienen opciones integradas para rastrear tipos populares de eventos (buscar o agregar al carrito). También es posible agregar eventos creando sus condiciones manualmente.
+
+Sin embargo, estos sistemas todavía se basan principalmente en sesiones de usuario en lugar de un análisis detallado del comportamiento. Esto no significa que los sistemas de análisis web sean peores que los sistemas de análisis basados en eventos; **simplemente tienen objetivos diferentes**.
+
+---
+
+## Resumen
+
+- **Análisis Web:** Trata sobre las fuentes de tráfico
+- **Análisis Basado en Eventos:** Se ocupa del comportamiento detallado del usuario
+- Ambos enfoques son complementarios y tienen sus propios casos de uso específicos
+
+---
+
+# Cómo se rastrean los eventos
+
+Antes de que podamos comenzar a analizar los eventos de los usuarios, necesitamos saber dónde los registraremos. Existen varios servicios para el seguimiento de eventos, por ejemplo:
+- **AppMetrica**
+- **Amplitude**
+- **MixPanel**
+
+Algunas empresas crean sus propios sistemas. Sin embargo, nuestro enfoque en esta lección no será **dónde** registrar eventos, sino **cómo**.
+
+---
+
+## ¿Cómo son estos eventos?
+
+### Ejemplo: Juego MiniMarket 3000
+
+Digamos que tenemos un juego llamado **MiniMarket 3000**, donde los jugadores crean pequeñas tiendas virtuales y compiten para obtener los mayores beneficios. 
+
+**Acción del jugador:** El jugador GoodLucker2083 realiza la acción "Adquisición de 20 kg de remolacha del almacén de verduras de la jugadora Artichoke23 por 500 monedas".
+
+¿Cómo se reflejará esta acción en un sistema de análisis basado en eventos?
+
+---
+
+## Estructura de un Evento
+
+Un evento se puede representar como un **diccionario**, donde la clave es el parámetro del evento y el valor es el valor de este parámetro.
+
+### Parámetros Básicos (Primarios)
+
+Los eventos tienen parámetros primarios o básicos que se pueden usar para análisis básicos:
+
+```python
+{
+    'id': 4242618,                      # Identificador de evento
+    'event_datetime': '2019-10-02 14:25:34',  # Fecha y hora del evento
+    'event_type': 'in_game_purchase',   # Tipo de evento: compra en el juego
+    'user_id': 129540                   # Identificador del jugador
+}
+```
+
+#### Preguntas que responden los parámetros básicos:
+
+1. **¿Cuántos jugadores hacen compras en el juego?**
+   - Pista: necesitas calcular el número de `user_id` unívoco donde `event_type = 'in_game_purchase'`
+
+2. **¿Cuáles son las primeras 10 acciones que los usuarios realizan con mayor frecuencia?**
+   - Sugerencia: para cada usuario, selecciona los primeros 10 eventos, únelos en `event_type` y luego cuenta el número de cada tipo
+
+### Parámetros Adicionales
+
+Para responder preguntas más complejas como "¿cómo varía el tamaño promedio de compra en el juego con el tiempo?", necesitamos parámetros adicionales:
+
+```python
+{
+    'purchase_amount': 20,              # El jugador compró 20 unidades
+    'purchase_product': 'beetroot',     # Qué producto compró el jugador
+    'purchase_price_per_unit': 25,      # El precio por artículo, en monedas
+    'purchase_total_cost': 500          # El costo total de la compra
+}
+```
+
+#### Preguntas que responden los parámetros adicionales:
+
+1. **¿Qué producto del juego compran con más frecuencia los jugadores?**
+   - Sugerencia: debes seleccionar el `purchase_product` que se compra con más frecuencia
+
+2. **¿Qué producto del juego es el más caro?**
+   - Sugerencia: selecciona el evento para el cual el `purchase_price_per_unit` sea el más alto
+
+### Evento Completo
+
+De esta forma, el evento de compra completo se ve así:
+
+```python
+{
+    'id': 4242618,                      # Identificador de evento
+    'event_datetime': '2019-10-02 14:25:34',  # Fecha y hora del evento
+    'event_type': 'in_game_purchase',   # Tipo de evento: compra en el juego
+    'user_id': 129540,                  # Identificador del jugador
+    'purchase_amount': 20,              # El jugador compró 20 unidades
+    'purchase_product': 'topinambur',   # Qué producto compró el jugador
+    'purchase_price_per_unit': 25,      # El precio por unidad, en monedas
+    'purchase_total_cost': 500          # El costo total de la compra
+}
+```
+
+---
+
+## Ampliación de Parámetros según Hipótesis
+
+Cada nueva hipótesis amplía la lista de parámetros a rastrear. El analista de MiniMarket 3000 podría necesitar responder:
+
+### Hipótesis y Parámetros Necesarios
+
+1. **¿Cómo cambió el comportamiento del usuario después de que se actualizó el juego?**
+   - Parámetro adicional: **versión de la aplicación**
+
+2. **¿Qué jugadores venden productos a otros jugadores con más frecuencia?**
+   - Parámetro adicional: **identificaciones de los jugadores vendedores**
+
+3. **¿Qué porcentaje de sus ahorros en el juego están dispuestos a gastar los jugadores en una sola compra?**
+   - Parámetro adicional: **saldo del jugador al momento del evento**
+
+---
+
+## Plan de Rastreo (Tracking Plan)
+
+Al desarrollar un sistema de rastreo de eventos, el analista debe diseñar una **estructura de parámetros** que considere todos los escenarios principales del uso de la aplicación o el servicio y permita probar una serie de hipótesis analíticas.
+
+### Proceso de Creación del Plan de Rastreo
+
+El analista lo hace:
+1. Identificando los principales recorridos y acciones de los usuarios sugeridos por la mecánica de la aplicación
+2. Elaborando un plan de rastreo
+
+### ¿Qué es un Plan de Rastreo?
+
+Es una **lista de eventos desglosados por categoría** junto con descripciones de los parámetros que se registran para cada evento.
+
+### Componentes de un Plan de Rastreo
+
+1. **Nombre del evento:** El nombre que se almacenará en el parámetro `event_type`
+2. **Descripción breve:** Qué representa el evento
+3. **Campo "Por qué":** Indicar el objetivo con precisión ayuda a evitar registrar eventos innecesarios ⚠️
+4. **Propiedades/Parámetros:** Cada propiedad se describe por separado, indicando los valores que puede tomar
+5. **Ubicación:** Ayuda a los desarrolladores a decidir dónde registrar el evento
+6. **Condiciones:** Ayuda a los desarrolladores a decidir en qué momento registrar un evento determinado
+
+### Recomendaciones
+
+- ✅ Rellenar el campo "Por qué" para cada evento
+- ✅ No necesitas identificar parámetros para cada evento (puedes almacenarlos en un documento separado)
+- ✅ Los campos "Ubicación" y "Condiciones" son cruciales para los desarrolladores
+
+---
+
+## Importancia de los Planes de Rastreo
+
+> **Los planes de rastreo y las estructuras de eventos correctas son la base para un análisis basado en eventos de calidad.**
+
+¿Cuál es el punto del análisis que no recopila datos útiles para las empresas?
+
+---
+
+## Ejemplo de Tracking Plan - MiniMarket 3000
+
+Referencia: `Tracking_plan_sample_us.xlsx`
+
+El plan de rastreo incluye:
+- Categorías de eventos
+- Nombres de eventos
+- Descripciones
+- Objetivos ("Por qué")
+- Parámetros y sus posibles valores
+- Ubicación en el código
+- Condiciones de activación
+
+---
+
+# Métodos de análisis basados en eventos
+
+Recopilar eventos es solo el primer paso. ¡Ahora tenemos que analizarlos!
+
+---
+
+## Embudos de Eventos (Event Funnels)
+
+A menudo necesitarás analizar **embudos de eventos**, que tienen similitudes con los embudos de marketing y productos que ya conoces.
+
+### Definición
+
+En el análisis basado en eventos, un **embudo** es una determinada serie de acciones que los usuarios y las usuarias deben completar en un sitio web, en un juego o en una aplicación para lograr un determinado resultado.
+
+### Características de los Embudos
+
+- Los embudos para las tiendas en línea son bastante simples
+- No puedes pagar hasta que agregues un producto al carrito
+- No puedes comprar nada sin completar el proceso de pago
+- Representan un flujo secuencial de acciones
+
+---
+
+## Ejemplo: Embudo en Kittygram (Aplicación Móvil)
+
+**Kittygram** es una aplicación donde los usuarios pueden publicar fotos de gatos y ver fotos de los gatos de otros usuarios.
+
+### Estructura del Embudo
+
+1. **El usuario descarga la aplicación**
+2. **El usuario se registra**
+3. **El usuario completa su perfil**
+4. **El usuario realiza su primera acción significativa:**
+   - Publicando su primera foto, O
+   - Siguiendo a otro usuario
+
+### Métricas Clave que Rastrea Kittygram
+
+1. **Tasa de registro:**
+   - Proporción de usuarios registrados entre los que descargan la aplicación
+
+2. **Tasa de completación de perfil:**
+   - Proporción de usuarios registrados que completan sus perfiles entre el total de usuarios registrados
+
+3. **Tasa de primera acción significativa:**
+   - Proporción de usuarios que realizan su primera acción significativa (publicar una foto o seguir a otro usuario) entre los usuarios que completan sus perfiles
+
+---
+
+## Embudos con Ramas Múltiples
+
+La última etapa del embudo de Kittygram tiene **dos ramas**:
+- Usuarios que siguen a otros primero
+- Usuarios que publican fotos de gatos primero
+
+### Insights de las Ramas
+
+Esto podría potencialmente revelar la existencia de **dos tipos de usuarios:**
+1. **Creadores de contenido** (publican primero)
+2. **Consumidores de contenido** (siguen primero)
+
+---
+
+## Tiempo Entre Eventos
+
+Otra métrica importante es el **tiempo entre eventos**.
+
+### Ejemplo Práctico
+
+- **Mediana de tiempo hasta la primera publicación:** 7 días
+- **Acción:** Si queremos reducir esa cifra, podemos enviar notificaciones push recordando a los usuarios que pueden compartir fotos de gatos
+
+### ⚠️ Advertencia
+
+Ten cuidado de no enviar demasiadas notificaciones o los usuarios desactivarán las notificaciones y tu plan fracasará.
+
+---
+
+## Análisis de Usuarios que No Avanzan
+
+Es importante no solo calcular las métricas para el progreso a través del embudo (tasas de conversión de una etapa a otra), sino también **realizar un seguimiento de los usuarios que no llegaron a una determinada etapa**.
+
+### Ejemplo
+
+Puede haber toda una clase de usuarios que:
+- No sigan otras cuentas
+- No publiquen nada
+- ¿Qué están haciendo? ¿Admirando en secreto a los gatos de otras personas?
+
+### Importancia
+
+Este análisis puede revelar:
+- Segmentos de usuarios pasivos
+- Oportunidades de mejora en el onboarding
+- Barreras en el proceso de activación
+
+---
+
+## Métricas Clave en Embudos de Eventos
+
+1. **Tasas de conversión:** De una etapa a la siguiente
+2. **Tiempo entre eventos:** Cuánto tardan los usuarios en avanzar
+3. **Tasas de abandono:** Qué porcentaje no completa cada etapa
+4. **Análisis de ramas:** Qué caminos toman los usuarios cuando hay opciones
+5. **Usuarios que no avanzan:** Comportamiento de usuarios estancados
+
+---
+
+# El Momento ¡Ajá! (Aha Moment)
+
+## Definición
+
+Uno de los objetivos del análisis basado en eventos es identificar el **momento ¡ajá!**
+
+### ¿Qué es el Momento ¡Ajá!?
+
+Es el momento en el que un usuario **ve claramente el valor** de una aplicación o servicio en particular y **se vuelve leal** a este.
+
+### Características de los Usuarios que Experimentan el Momento ¡Ajá!
+
+Es más probable que dichos clientes:
+- ✅ Utilicen el servicio con regularidad
+- ✅ Paguen por él
+- ✅ Se conviertan en usuarios leales
+
+---
+
+## Ejemplos de Momentos ¡Ajá!
+
+### Facebook
+**Momento ¡Ajá!:** Cuando los usuarios agregan **7 amigos en 10 días**
+
+### Kittygram (Hipotético)
+El momento ¡ajá! podría ser:
+- Obtener el **"Me gusta" número 21**, O
+- Seguir al **gato número 13**
+
+> **Nota:** Tendrías que investigar un poco para encontrar los números exactos.
+
+---
+
+## Relación con la Tasa de Retención
+
+La identificación del momento ¡ajá! está muy relacionada con la **tasa de retención**, que puede revelar el desarrollo de la lealtad entre la clientela.
+
+### Conexión con Análisis de Cohortes
+
+¿Recuerdas encontrar la cantidad de clientes que se volvieron adictos al café cuando estabas estudiando cohortes por comportamiento? Ese es un ejemplo de identificación del momento ¡ajá!
+
+---
+
+## Aplicaciones del Análisis Basado en Eventos
+
+### 1. Pruebas A/B
+
+El análisis basado en eventos es útil en las **pruebas A/B**:
+- Permite evaluar los cambios en el comportamiento del usuario
+- Mide el impacto cuando se realizan cambios en un servicio
+
+### 2. Predicciones de Abandono (Churn Prediction)
+
+El análisis basado en eventos es útil cuando haces **predicciones de abandono** ("churn" en inglés).
+
+#### Proceso:
+
+1. **Análisis de datos:** Estudias datos sobre usuarios que dejan de usar una aplicación o servicio
+2. **Modelo matemático:** Creas un modelo para identificar el momento en que deciden irse
+3. **Comparación:** Comparas el comportamiento de los que renuncian vs. los que se quedan
+
+#### Señales de Abandono:
+
+Si un usuario:
+- ⚠️ Pasa cada vez **menos tiempo** usando la aplicación
+- ⚠️ Realiza acciones **menos significativas**
+
+Esto puede ser una señal de que **se irá pronto**.
+
+#### Machine Learning
+
+Los analistas desarrollan **modelos de machine learning** para hacer predicciones de este tipo.
+
+---
+
+## Importancia del Análisis Basado en Eventos
+
+El análisis basado en eventos es una **herramienta poderosa** para evaluar el comportamiento del usuario.
+
+### Beneficios:
+
+1. **Mejora la experiencia de uso** de una aplicación o servicio
+2. **Potencia las métricas comerciales**
+3. **Identifica momentos clave** en el journey del usuario
+4. **Predice comportamientos futuros**
+5. **Optimiza estrategias de retención**
+
+---
+
+## Cómo Identificar el Momento ¡Ajá!
+
+### Metodología:
+
+1. **Análisis de cohortes:** Agrupa usuarios por comportamiento
+2. **Medición de retención:** Identifica qué usuarios se quedan
+3. **Análisis retrospectivo:** Encuentra patrones comunes en usuarios leales
+4. **Correlación con acciones:** Identifica qué acciones preceden a la lealtad
+5. **Validación:** Prueba si esas acciones realmente predicen retención
+
+### Características de un Buen Momento ¡Ajá!:
+
+- ✅ Es **medible** (número específico de acciones)
+- ✅ Es **alcanzable** (no demasiado difícil)
+- ✅ Tiene un **marco temporal** claro
+- ✅ Está **correlacionado** con retención a largo plazo
+- ✅ Es **accionable** (puedes diseñar estrategias para que los usuarios lo alcancen)
+
+---
+
+# Conclusión
+
+El análisis basado en eventos puede ser extrañamente divertido. En este capítulo aprendiste mucho:
+
+## Resumen de Aprendizajes
+
+1. ✅ **Qué son los eventos y el análisis basado en eventos**
+   - Diferencia entre análisis web y análisis basado en eventos
+   - Importancia del seguimiento detallado de acciones del usuario
+   - Casos de uso en aplicaciones móviles y servicios digitales
+
+2. ✅ **Cómo se rastrean los eventos**
+   - Estructura de eventos como diccionarios
+   - Parámetros básicos vs. parámetros adicionales
+   - Servicios de seguimiento (AppMetrica, Amplitude, MixPanel)
+
+3. ✅ **La estructura de un plan de seguimiento (Tracking Plan)**
+   - Componentes esenciales: nombre, descripción, "por qué"
+   - Parámetros y propiedades de eventos
+   - Ubicación y condiciones de activación
+
+4. ✅ **Qué métodos se utilizan para analizar eventos**
+   - Embudos de eventos (Event Funnels)
+   - Análisis de ramas múltiples
+   - Tiempo entre eventos
+   - Momento ¡ajá! (Aha Moment)
+   - Predicciones de abandono (Churn Prediction)
+   - Pruebas A/B basadas en eventos
+
+---
+
+## Lectura Adicional
+
+Para profundizar en el análisis basado en eventos, consulta estos recursos:
+
+### 1. Cómo Crear un Plan de Seguimiento
+**Segment Academy**
+- 🔗 https://segment.com/academy/collecting-data/how-to-create-a-tracking-plan/
+- Guía práctica para diseñar y documentar tu tracking plan
+- Mejores prácticas de la industria
+
+### 2. Data Taxonomy Playbook
+**Amplitude Help Center**
+- 🔗 https://help.amplitude.com/hc/en-us/articles/115000465251-Data-Taxonomy-Playbook
+- Cómo organizar y estructurar tus datos de eventos
+- Taxonomía de datos para análisis efectivo
+
+---
+
+## Próximos Pasos
+
+Con estos conocimientos, estás preparado para:
+- 🎯 Diseñar planes de seguimiento efectivos
+- 🎯 Analizar comportamientos de usuarios en profundidad
+- 🎯 Identificar momentos clave en el journey del usuario
+- 🎯 Optimizar métricas de retención y conversión
+- 🎯 Tomar decisiones basadas en datos de eventos
+
+---
+
+**¡Felicidades por completar este módulo sobre Análisis basado en eventos!** 🎉
